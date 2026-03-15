@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<meta charset="utf-8">
-<title>Potree Viewer</title>
+  <meta charset="utf-8">
+  <title>Mon nuage de points Potree</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/potree/potree/build/potree/potree.css">
-<script src="https://cdn.jsdelivr.net/gh/potree/potree/build/potree/potree.js"></script>
+  <!-- Potree CSS & JS depuis CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/potree/potree/build/potree/potree.css">
+  <script src="https://cdn.jsdelivr.net/gh/potree/potree/build/potree/potree.js"></script>
 
-<style>
-html, body {
-    margin:0;
-    height:100%;
-}
-#potree_render_area{
-    width:100%;
-    height:100%;
-}
-</style>
+  <style>
+    html, body { margin: 0; height: 100%; }
+    #potree_render_area { width: 100%; height: 100%; }
+  </style>
 </head>
-
 <body>
 
 <div id="potree_render_area"></div>
 
 <script>
+  // Création du viewer
+  const viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
 
-const viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
+  viewer.setEDLEnabled(true);       // Effet lumière
+  viewer.setFOV(60);                // Champ de vision
+  viewer.setPointBudget(1000000);   // Nombre de points affichés (augmente si ton PC peut)
+  viewer.loadSettingsFromURL();     // charge les paramètres depuis URL si nécessaire
 
-viewer.setEDLEnabled(true);
-viewer.setFOV(60);
-viewer.setPointBudget(1000000);
-
+  // Charger ton nuage de points
+  Potree.loadPointCloud("pointclouds/monCloud/metadata.json", "monCloud").then(e => {
+      const pc = e.pointcloud;
+      viewer.scene.addPointCloud(pc);
+      viewer.fitToScreen();
+  });
 </script>
 
 </body>
