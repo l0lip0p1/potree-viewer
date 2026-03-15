@@ -4,12 +4,17 @@
   <meta charset="utf-8">
   <title>Viewer Potree</title>
 
-  <!-- Potree CSS local -->
+  <!-- CSS Potree -->
   <link rel="stylesheet" href="build/potree/potree.css">
 </head>
 <body>
 
-<!-- Scripts des librairies requis par Potree -->
+<div class="potree_container" style="position:absolute; width:100%; height:100%; left:0; top:0;">
+  <div id="potree_render_area"></div>
+  <div id="potree_sidebar_container"></div>
+</div>
+
+<!-- Libs nécessaires dans le bon ordre -->
 <script src="libs/jquery/jquery-3.1.1.min.js"></script>
 <script src="libs/spectrum/spectrum.js"></script>
 <script src="libs/jquery-ui/jquery-ui.min.js"></script>
@@ -21,29 +26,25 @@
 <script src="libs/i18next/i18next.js"></script>
 <script src="libs/jstree/jstree.js"></script>
 
-<!-- Potree principal -->
+<!-- Potree -->
 <script src="build/potree/potree.js"></script>
 
 <!-- Support LAS/LAZ -->
 <script src="libs/plasio/js/laslaz.js"></script>
 
-<div class="potree_container" style="position:absolute; width:100%; height:100%; left:0; top:0;">
-  <div id="potree_render_area"></div>
-  <div id="potree_sidebar_container"></div>
-</div>
-
 <script>
-window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
-viewer.setEDLEnabled(true);
-viewer.setFOV(60);
-viewer.setPointBudget(1_000_000);
-viewer.loadSettingsFromURL();
+  // Initialiser le viewer
+  const viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
+  viewer.setEDLEnabled(true);
+  viewer.setFOV(60);
+  viewer.setPointBudget(1000000);
+  viewer.loadSettingsFromURL();
 
-// Chargement du point cloud
-Potree.loadPointCloud("pointclouds/moncloud/metadata.json", "moncloud").then(e => {
-    viewer.scene.addPointCloud(e.pointcloud);
-    viewer.fitToScreen();
-});
+  // Charger le nuage
+  Potree.loadPointCloud("pointclouds/moncloud/metadata.json", "moncloud").then(e => {
+      viewer.scene.addPointCloud(e.pointcloud);
+      viewer.fitToScreen();
+  });
 </script>
 
 </body>
