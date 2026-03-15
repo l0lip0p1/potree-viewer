@@ -27,10 +27,11 @@
   viewer.loadSettingsFromURL();     // charge les paramètres depuis URL si nécessaire
 
   // Charger ton nuage de points
-  Potree.loadPointCloud("pointclouds/monCloud/metadata.json", "monCloud").then(e => {
-      const pc = e.pointcloud;
-      viewer.scene.addPointCloud(pc);
-      viewer.fitToScreen();
+Potree.loadPointCloud("pointclouds/moncloud/metadata.json", "moncloud").then(e => {
+    const pc = e.pointcloud;
+    viewer.scene.addPointCloud(pc);
+    viewer.fitToScreen();
+
   });
 </script>
 
