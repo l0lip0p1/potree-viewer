@@ -68,8 +68,10 @@
     });
 
     Potree.loadPointCloud(
-        "pointclouds/moncloud/metadata.json",
-        "moncloud"
+    "https://pub-c74bf095214b4c7e879ef920e0534561.r2.dev",
+    "moncloud"
+    )
+    
     ).then(e => {
 
         let pointcloud = e.pointcloud;
