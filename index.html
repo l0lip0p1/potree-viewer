@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>Potree Viewer</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="build/potree/potree.css">
     <link rel="stylesheet" href="libs/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="libs/jstree/themes/mixed/style.css">
@@ -53,33 +52,31 @@
 
 <script>
 
-    window.viewer = new Potree.Viewer(
-        document.getElementById("potree_render_area")
-    );
+window.viewer = new Potree.Viewer(
+    document.getElementById("potree_render_area")
+);
 
-    viewer.setEDLEnabled(true);
-    viewer.setFOV(60);
-    viewer.setPointBudget(1000000);
-    viewer.loadSettingsFromURL();
+viewer.setEDLEnabled(true);
+viewer.setFOV(60);
+viewer.setPointBudget(1000000);
+viewer.loadSettingsFromURL();
 
-    viewer.loadGUI(() => {
-        viewer.setLanguage('en');
-        $("#menu_appearance").next().show();
-    });
+viewer.loadGUI(() => {
+    viewer.setLanguage('en');
+    $("#menu_appearance").next().show();
+});
 
-    Potree.loadPointCloud(
-    "https://pub-c74bf095214b4c7e879ef920e0534561.r2.dev",
-    "moncloud"
-    
-    
-    ).then(e => {
+Potree.loadPointCloud(
+"https://pub-c74bf095214b4c7e879ef920e0534561.r2.dev/pointclouds/moncloud/metadata.json",
+"moncloud"
+).then(e => {
 
-        let pointcloud = e.pointcloud;
+    let pointcloud = e.pointcloud;
 
-        viewer.scene.addPointCloud(pointcloud);
-        viewer.fitToScreen();
+    viewer.scene.addPointCloud(pointcloud);
+    viewer.fitToScreen();
 
-    });
+});
 
 </script>
 
